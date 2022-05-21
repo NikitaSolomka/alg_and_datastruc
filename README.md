@@ -1,1 +1,1 @@
-Alg and struc
+Alg and struc.
