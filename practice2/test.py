@@ -1,5 +1,5 @@
-from employee import Employee
-from employee import Generator
+from Person import Employee
+from Person import Generator
 
 
 def test_employee():
