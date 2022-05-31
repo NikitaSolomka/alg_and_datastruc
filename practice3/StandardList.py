@@ -3,7 +3,7 @@ from practice2.Person import Person
 from practice2.Person import Generator
 
 
-class StandartList(AbstractStructure):
+class StandardList(AbstractStructure):
     __list: list = list()
     value: Person
     size: int = 0
@@ -37,11 +37,13 @@ class StandartList(AbstractStructure):
         return None
 
     def remove(self, value) -> bool:
-        if value in self.__list:
-            self.__list.remove(value)
-            self.size -= 1
-            return True
-        return False
+        try:
+            if value in self.__list:
+                self.__list.remove(value)
+                self.size -= 1
+                return True
+        except ValueError:
+            return False
 
     def get_all(self) -> list:
         return self.__list
@@ -52,30 +54,51 @@ class StandartList(AbstractStructure):
 
 if __name__ == "__main__":
 
-    s_list = StandartList()
+    my_list = StandardList()
     g = Generator()
 
     p1 = g.generate_single()
     p2 = g.generate_single()
     p3 = g.generate_single()
 
-    print([p1, p2, p3])
+    # Сгенерированные объекты:
+    print(f'Сгенерированные объекты:   {[p1, p2, p3]}')
 
-    s_list.add(p1)
-    s_list.add(p2)
-    s_list.add(p3, 0)
-    print(s_list.get_all())
+    # Добавление объектов в конец списка (без индекса):
+    my_list.add(p1)
+    my_list.add(p2)
+    my_list.add(p3)
 
+    # Результат добавления объектов в конец списка:
+    print(f'Результат добавления объектов в конец списка:   {my_list.get_all()}')
+
+    # Добавление объекта в конкретную позицию (со смещением):
     p4 = g.generate_single()
-    print(s_list.insert(p4, 1))
-    print(s_list.insert(p4, 10))
+    print(f'\nГенерация нового объекта:   {[p4]}')
 
-    print(s_list.get_all())
-    print(len(s_list))
+    my_list.add(p4, 1)
+    print(f'Результат добавления объекта в конкретную позицию:')
+    print(my_list.get_all())
 
-    print(s_list.find(p1))
-    print(s_list.find(p2))
+    # Добавления объекта в конкретную позицию, с заменой:
+    p5 = g.generate_single()
+    print(f'\nГенерация нового объекта:   {[p5]}')
+    my_list.insert(p5, 0)
+    print(f'Результат добавления объекта с заменой:')
+    print(my_list.get_all())
 
-    print(s_list.get(2))
-    print(s_list.remove(p2))
-    print(s_list.remove(p2))
+    # Поиск элемента по его значению, для получения индекса:
+    print(f'\nРезультат поиска объекта {[p5]} для получения его индекса:')
+    print(my_list.find(p5))
+
+    # Поиск объекта по его индексу:
+    print(f'\nРезультат поиска объекта по его индексу, например 2:')
+    print(my_list.get(2))
+
+    # Удаление объекта
+    print(f'\nУдаление объекта {[p5]} и {[p3]} из списка:')
+    print(f'Удаление объекта p5: {my_list.remove(p5)}')
+    print(f'Удаление объекта p3: {my_list.remove(p3)}')
+    print(f'Проба повторного удаления уже удаленного объекта: {my_list.remove(p5)}')
+    print(my_list.get_all())
+
