@@ -20,7 +20,8 @@ class Person:
         return f'Person({self.name} {self.surname}, {self.gender}, {self.birthdate})'
 
     def __eq__(self, other):
-        return
+        return self.name is other.name and self.surname is other.surname and self.birthdate is other.birthdate and \
+               self.gender is other.gender
 
     def check_age(self) -> int:
         age = int((datetime.today() - datetime.strptime(self.birthdate, "%Y-%m-%d")).days / 365.25)
